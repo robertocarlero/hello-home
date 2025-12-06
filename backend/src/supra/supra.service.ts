@@ -4,7 +4,11 @@ import { SupraPayinService } from '@/supra/payin/supra-payin.service';
 import { SupraPayoutService } from '@/supra/payout/supra-payout.service';
 import { SupraFlowsService } from '@/supra/flows/supra-flows.service';
 import { ExchangeQuote } from '@/supra/common/interfaces/exchage-quote';
-import { PaymentRequest } from '@/supra/common/types/payment';
+import {
+  PaymentRequest,
+  CreatePaymentResponse,
+  GetPaymentResponse,
+} from '@/supra/common/interfaces/payment';
 
 @Injectable()
 export class SupraService {
@@ -23,11 +27,11 @@ export class SupraService {
     return this.exchange.getExchangeQuote(id);
   }
 
-  createPayinPayment(payload: PaymentRequest) {
+  createPayinPayment(payload: PaymentRequest): Promise<CreatePaymentResponse> {
     return this.payin.createPayinPayment(payload);
   }
 
-  getPayinPayment(id: string) {
+  getPayinPayment(id: string): Promise<GetPaymentResponse> {
     return this.payin.getPayinPayment(id);
   }
 
