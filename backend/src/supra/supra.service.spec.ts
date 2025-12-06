@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { SupraService } from './supra.service';
-import { SupraExchangeService } from './exchange/supra-exchange.service';
-import { SupraPayinService } from './payin/supra-payin.service';
-import { SupraPayoutService } from './payout/supra-payout.service';
-import { SupraFlowsService } from './flows/supra-flows.service';
+import { SupraService } from '@/supra/supra.service';
+import { SupraExchangeService } from '@/supra/exchange/supra-exchange.service';
+import { SupraPayinService } from '@/supra/payin/supra-payin.service';
+import { SupraPayoutService } from '@/supra/payout/supra-payout.service';
+import { SupraFlowsService } from '@/supra/flows/supra-flows.service';
 
 describe('SupraService', () => {
   let service: SupraService;

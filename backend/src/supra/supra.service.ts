@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { SupraExchangeService } from './exchange/supra-exchange.service';
-import { SupraPayinService } from './payin/supra-payin.service';
-import { SupraPayoutService } from './payout/supra-payout.service';
-import { SupraFlowsService } from './flows/supra-flows.service';
-import { ExchangeQuote } from './common/interfaces/exchage-quote';
-import { PaymentRequest } from './common/types/payment';
+import { SupraExchangeService } from '@/supra/exchange/supra-exchange.service';
+import { SupraPayinService } from '@/supra/payin/supra-payin.service';
+import { SupraPayoutService } from '@/supra/payout/supra-payout.service';
+import { SupraFlowsService } from '@/supra/flows/supra-flows.service';
+import { ExchangeQuote } from '@/supra/common/interfaces/exchage-quote';
+import { PaymentRequest } from '@/supra/common/types/payment';
 
 @Injectable()
 export class SupraService {

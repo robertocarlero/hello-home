@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
-import { SupraFlowsService } from './supra-flows.service';
-import { SupraAuthService } from '../auth/supra-auth.service';
+import { SupraFlowsService } from '@/supra/flows/supra-flows.service';
+import { SupraAuthService } from '@/supra/auth/supra-auth.service';
 import { of } from 'rxjs';
 
 describe('SupraFlowsService', () => {

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { SupraBaseService } from '../base/supra-base.service';
-import { PaymentRequest } from '../common/types/payment';
+import { SupraBaseService } from '@/supra/base/supra-base.service';
+import { PaymentRequest } from '@/supra/common/types/payment';
 
 @Injectable()
 export class SupraPayinService extends SupraBaseService {

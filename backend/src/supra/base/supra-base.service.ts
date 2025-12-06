@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
 import { firstValueFrom } from 'rxjs';
-import { SupraAuthService } from '../auth/supra-auth.service';
+import { SupraAuthService } from '@/supra/auth/supra-auth.service';
 
 @Injectable()
 export abstract class SupraBaseService {

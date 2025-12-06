@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { SupraBaseService } from '../base/supra-base.service';
+import { SupraBaseService } from '@/supra/base/supra-base.service';
 
 @Injectable()
 export class SupraFlowsService extends SupraBaseService {

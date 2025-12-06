@@ -1,5 +1,5 @@
-import { Currency } from './currency';
-import type { DocumentType } from './document-type';
+import { Currency } from '@/supra/common/types/currency';
+import type { DocumentType } from '@/supra/common/types/document-type';
 
 export type PaymentStatus = 'PENDING' | 'COMPLETED' | 'FAILED';
 

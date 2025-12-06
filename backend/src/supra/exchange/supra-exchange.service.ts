@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { SupraBaseService } from '../base/supra-base.service';
-import { ExchangeQuote } from '../common/interfaces/exchage-quote';
+import { SupraBaseService } from '@/supra/base/supra-base.service';
+import { ExchangeQuote } from '@/supra/common/interfaces/exchage-quote';
 
 @Injectable()
 export class SupraExchangeService extends SupraBaseService {

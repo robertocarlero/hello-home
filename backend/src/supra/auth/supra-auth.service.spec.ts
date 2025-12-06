@@ -1,4 +1,4 @@
-import { SupraAuthService } from './supra-auth.service';
+import { SupraAuthService } from '@/supra/auth/supra-auth.service';
 import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
 import { of } from 'rxjs';

@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
-import { SupraPayinService } from './supra-payin.service';
-import { SupraAuthService } from '../auth/supra-auth.service';
+import { SupraPayinService } from '@/supra/payin/supra-payin.service';
+import { SupraAuthService } from '@/supra/auth/supra-auth.service';
 import { of } from 'rxjs';
 
 describe('SupraPayinService', () => {

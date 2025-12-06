@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { SupraModule } from './supra/supra.module';
+import { SupraModule } from '@/supra/supra.module';
 import { ConfigModule } from '@nestjs/config';
-import configuration from './config/configuration';
+import configuration from '@/config/configuration';
 
 @Module({
   imports: [

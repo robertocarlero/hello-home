@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
 import { HttpModule } from '@nestjs/axios';
-import { SupraAuthService } from './auth/supra-auth.service';
-import { SupraService } from './supra.service';
+import { SupraAuthService } from '@/supra/auth/supra-auth.service';
+import { SupraService } from '@/supra/supra.service';
 import { ConfigService } from '@nestjs/config';
-import { SupraExchangeService } from './exchange/supra-exchange.service';
-import { SupraPayinService } from './payin/supra-payin.service';
-import { SupraPayoutService } from './payout/supra-payout.service';
-import { SupraFlowsService } from './flows/supra-flows.service';
+import { SupraExchangeService } from '@/supra/exchange/supra-exchange.service';
+import { SupraPayinService } from '@/supra/payin/supra-payin.service';
+import { SupraPayoutService } from '@/supra/payout/supra-payout.service';
+import { SupraFlowsService } from '@/supra/flows/supra-flows.service';
 
 @Module({
   imports: [
