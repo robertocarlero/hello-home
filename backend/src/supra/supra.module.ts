@@ -26,5 +26,6 @@ import { SupraFlowsService } from '@/supra/flows/supra-flows.service';
     SupraPayoutService,
     SupraFlowsService,
   ],
+  exports: [SupraService],
 })
 export class SupraModule {}
