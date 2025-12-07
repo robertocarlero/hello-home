@@ -1,0 +1,28 @@
+<section class="py-12 bg-gradient-to-b from-white to-stone-50 sm:py-16 lg:py-20">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <!-- Section Header -->
+    <div class="mb-10 lg:mb-16">
+      <h2 class="text-2xl font-light text-gray-800 sm:text-3xl lg:text-4xl max-w-lg">
+        Explore our thoughtful and planet-first
+        <span class="inline-flex items-center gap-2">
+          <z-icon zType="sparkles" class="text-emerald-800 size-7"></z-icon>
+          <span class="font-serif italic text-emerald-800">Categories</span>
+        </span>
+      </h2>
+    </div>
+
+    <!-- Categories Grid -->
+    <div class="relative">
+      @if (categories$ | async; as categories) {
+      <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        @for (category of categories; track category.id) {
+        <app-category-card
+          [category]="category"
+          (navigate)="onNavigate($event)"
+        ></app-category-card>
+        }
+      </div>
+      }
+    </div>
+  </div>
+</section>
