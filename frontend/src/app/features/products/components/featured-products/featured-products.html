@@ -1,0 +1,18 @@
+<section class="py-12 bg-white sm:py-16 lg:py-20">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-2xl text-center lg:max-w-none">
+      <h2 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl lg:text-4xl">
+        Featured Collections
+      </h2>
+      <p class="mt-4 text-lg text-gray-500">
+        Discover rare and exclusive items selected just for you.
+      </p>
+    </div>
+
+    <div class="mt-10 lg:mt-16">
+      @if (featuredProducts$ | async; as products) {
+      <app-product-list [products]="products" (addToCart)="onAddToCart($event)"> </app-product-list>
+      }
+    </div>
+  </div>
+</section>

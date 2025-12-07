@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { HeroBannerComponent } from '../../components/hero-banner/hero-banner';
+import { FeaturedProductsComponent } from '../../components/featured-products/featured-products';
 
 @Component({
   selector: 'app-home',
-  imports: [HeroBannerComponent],
+  imports: [HeroBannerComponent, FeaturedProductsComponent],
   templateUrl: './home.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

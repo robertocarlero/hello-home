@@ -1,0 +1,45 @@
+<div
+  class="group relative flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition-all hover:shadow-md"
+>
+  <!-- Image Container -->
+  <div class="relative aspect-square overflow-hidden bg-gray-100">
+    <img
+      [src]="product().imageUrl"
+      [alt]="product().name"
+      class="h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
+      loading="lazy"
+    />
+
+    <!-- Tags -->
+    <div class="absolute left-2 top-2 flex flex-col gap-1">
+      @if (product().isFeatured) {
+      <span
+        class="inline-flex font-serif items-center rounded-full border border-amber-100 px-2.5 py-0.5 text-xs font-medium text-amber-100 backdrop-blur-sm"
+      >
+        Featured
+      </span>
+      }
+      <!-- We could add more tags here based on logic -->
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="flex flex-1 flex-col p-4">
+    <h3 class="text-lg font-medium text-gray-900">
+      {{ product().name }}
+    </h3>
+    <p class="mt-1 text-sm text-gray-500 line-clamp-2">{{ product().description }}</p>
+
+    <div class="mt-auto flex items-center justify-between pt-4">
+      <span class="text-lg font-bold text-gray-900">{{ product().price | currency }}</span>
+
+      <button
+        z-button
+        class="rounded-full bg-emerald-900 text-amber-100"
+        (click)="onAddToCart($event)"
+      >
+        + Add
+      </button>
+    </div>
+  </div>
+</div>
