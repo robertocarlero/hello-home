@@ -2,7 +2,7 @@ import { Injectable, signal, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { catchError, tap, of, Observable, map } from 'rxjs';
-import { environment } from '../../../environments/environment';
+import { environment } from '@env/environment';
 
 export interface User {
   userId: number;

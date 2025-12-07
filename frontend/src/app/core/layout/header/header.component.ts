@@ -4,7 +4,7 @@ import { ZardIconComponent } from '@shared/components/icon/icon.component';
 import { ZardInputDirective } from '@shared/components/input/input.directive';
 import { GlassButtonComponent } from '@shared/components/ui/glass-button/glass-button.component';
 import { CartService } from '@features/cart/services/cart.service';
-import { AuthService } from '@features/auth/auth.service';
+import { AuthService } from '@features/auth/services/auth.service';
 import { LoginModalComponent } from '@features/auth/login-modal/login-modal.component';
 
 import { ZardAlertDialogService } from '@shared/components/alert-dialog/alert-dialog.service';

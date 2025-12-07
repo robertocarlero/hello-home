@@ -8,15 +8,15 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        loadChildren: () => import('./features/home/home.routes').then((m) => m.routes),
+        loadChildren: () => import('./features/home/pages/home.routes').then((m) => m.routes),
       },
       {
         path: 'cart',
-        loadChildren: () => import('./features/cart/cart.routes').then((m) => m.routes),
+        loadChildren: () => import('./features/cart/pages/cart.routes').then((m) => m.routes),
       },
       {
         path: 'profile',
-        loadChildren: () => import('./features/auth/auth.routes').then((m) => m.routes),
+        loadChildren: () => import('./features/auth/pages/auth.routes').then((m) => m.routes),
       },
     ],
   },

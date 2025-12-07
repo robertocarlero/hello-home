@@ -1,13 +1,13 @@
 import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { CartService } from './services/cart.service';
-import { CartItem } from './models/cart-item.interface';
+import { CartService } from '../../services/cart.service';
+import { CartItem } from '../../models/cart-item.interface';
 import { ZardButtonComponent } from '@shared/components/button/button.component';
 import { ZardIconComponent } from '@shared/components/icon/icon.component';
 import { ZardAlertDialogService } from '@shared/components/alert-dialog/alert-dialog.service';
-import { CartItemComponent } from './components/cart-item/cart-item.component';
-import { CartCheckoutSummaryComponent } from './components/cart-checkout-summary/cart-checkout-summary.component';
+import { CartItemComponent } from '../../components/cart-item/cart-item.component';
+import { CartCheckoutSummaryComponent } from '../../components/cart-checkout-summary/cart-checkout-summary.component';
 
 @Component({
   selector: 'app-cart',

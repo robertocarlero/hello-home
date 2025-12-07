@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AuthService } from '@features/auth/auth.service';
+import { AuthService } from '@features/auth/services/auth.service';
 import { ZardIconComponent } from '@shared/components/icon/icon.component';
 import { ZardAlertDialogService } from '@shared/components/alert-dialog/alert-dialog.service';
 import { ZardButtonComponent } from '@shared/components/button/button.component';

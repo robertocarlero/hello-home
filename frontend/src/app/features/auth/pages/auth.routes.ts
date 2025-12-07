@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import { ProfilePageComponent } from './pages/profile/profile';
-import { authGuard } from '@features/auth/auth.guard';
+import { ProfilePageComponent } from './profile/profile';
+import { authGuard } from '@core/guards/auth.guard';
 
 export const routes: Routes = [
   {

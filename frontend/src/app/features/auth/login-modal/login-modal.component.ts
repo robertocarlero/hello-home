@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AuthService } from '@features/auth/auth.service';
+import { AuthService } from '@features/auth/services/auth.service';
 import { GlassButtonComponent } from '@shared/components/ui/glass-button/glass-button.component';
 import { ZardIconComponent } from '@shared/components/icon/icon.component';
 import { ZardInputDirective } from '@shared/components/input/input.directive';
