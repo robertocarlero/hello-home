@@ -1,6 +1,6 @@
 import { Component, input, output, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule, CurrencyPipe } from '@angular/common';
-import { CartItem } from '@core/models/cart-item.interface';
+import { CartItem } from '../../models/cart-item.interface';
 import { ZardIconComponent } from '@shared/components/icon/icon.component';
 
 @Component({

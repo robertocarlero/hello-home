@@ -1,8 +1,8 @@
 import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProductsService } from '@core/services/products.service';
-import { CartService } from '@core/services/cart.service';
-import { Product } from '@core/models/product.interface';
+import { ProductsService } from '../../services/products.service';
+import { CartService } from '@features/cart/services/cart.service';
+import { Product } from '../../models/product.interface';
 import { ProductListComponent } from '@features/products/components/product-list/product-list';
 
 @Component({

@@ -1,5 +1,5 @@
 import { Component, input, output, ChangeDetectionStrategy } from '@angular/core';
-import { Category } from '@core/models/category.interface';
+import { Category } from '../../models/category.interface';
 import { CategoryCardComponent } from '../category-card/category-card';
 
 @Component({

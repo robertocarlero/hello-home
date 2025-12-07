@@ -1,6 +1,6 @@
 import { Injectable, signal, computed, effect, inject } from '@angular/core';
-import { Product } from '@core/models/product.interface';
-import { CartItem } from '@core/models/cart-item.interface';
+import { Product } from '@features/products/models/product.interface';
+import { CartItem } from '../models/cart-item.interface';
 import { toast } from 'ngx-sonner';
 
 @Injectable({

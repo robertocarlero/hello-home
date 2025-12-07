@@ -1,8 +1,8 @@
 import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { CartService } from '@core/services/cart.service';
-import { CartItem } from '@core/models/cart-item.interface';
+import { CartService } from './services/cart.service';
+import { CartItem } from './models/cart-item.interface';
 import { ZardButtonComponent } from '@shared/components/button/button.component';
 import { ZardIconComponent } from '@shared/components/icon/icon.component';
 import { ZardAlertDialogService } from '@shared/components/alert-dialog/alert-dialog.service';

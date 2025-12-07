@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { ZardIconComponent } from '@shared/components/icon/icon.component';
 import { ZardInputDirective } from '@shared/components/input/input.directive';
 import { GlassButtonComponent } from '@shared/components/ui/glass-button/glass-button.component';
-import { CartService } from '@core/services/cart.service';
+import { CartService } from '@features/cart/services/cart.service';
 
 @Component({
   selector: 'app-header',

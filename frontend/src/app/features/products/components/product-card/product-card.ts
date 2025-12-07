@@ -1,6 +1,6 @@
 import { Component, input, output, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule, CurrencyPipe } from '@angular/common';
-import { Product } from '@core/models/product.interface';
+import { Product } from '../../models/product.interface';
 import { ZardButtonComponent } from '@shared/components/button/button.component';
 
 @Component({

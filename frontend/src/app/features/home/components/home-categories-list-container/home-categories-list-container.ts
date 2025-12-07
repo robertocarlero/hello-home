@@ -1,6 +1,6 @@
 import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProductsService } from '@core/services/products.service';
+import { ProductsService } from '@features/products/services/products.service';
 import { CategoryListComponent } from '@features/products/components/category-list/category-list';
 
 @Component({
