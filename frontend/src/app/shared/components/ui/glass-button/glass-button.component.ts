@@ -15,10 +15,12 @@ import { mergeClasses } from '@shared/utils/merge-classes';
 })
 export class GlassButtonComponent {
   readonly class = input<string>('');
+  readonly disabled = input<boolean>(false);
 
   protected computedClass() {
     return mergeClasses(
       'p-2 rounded-full border border-white/20 bg-white/5 hover:bg-white/10 transition-colors pointer-events-auto cursor-pointer text-white flex items-center justify-center h-auto w-auto',
+      this.disabled() ? 'opacity-50 pointer-events-none cursor-not-allowed' : '',
       this.class()
     );
   }

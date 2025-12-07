@@ -49,6 +49,7 @@ import {
   LightbulbOff,
   ListFilterPlus,
   LoaderCircle,
+  Lock,
   LogOut,
   type LucideIconData,
   Mail,
@@ -173,6 +174,7 @@ export const ZARD_ICONS = {
   tag: Tag,
   'shopping-bag': ShoppingBag,
   sprout: Sprout,
+  lock: Lock,
 } as const satisfies Record<string, LucideIconData>;
 
 export declare type ZardIcon = keyof typeof ZARD_ICONS | LucideIconData;

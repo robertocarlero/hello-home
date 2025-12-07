@@ -1,0 +1,86 @@
+<div
+  class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+  (click)="close.emit(false)"
+>
+  <div
+    class="relative w-full max-w-md p-8 overflow-hidden rounded-3xl bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl"
+    (click)="$event.stopPropagation()"
+  >
+    <!-- Close Button -->
+    <button
+      (click)="close.emit(false)"
+      class="absolute top-4 right-4 text-white/70 hover:text-white transition-colors"
+    >
+      <z-icon zType="x" class="size-6"></z-icon>
+    </button>
+
+    <h2 class="text-3xl font-serif italic font-bold text-amber-50 mb-6 text-center">
+      Welcome Back
+    </h2>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-6">
+      <div class="space-y-2">
+        <label class="block text-sm font-medium text-emerald-50/90 pl-1">Email</label>
+        <div class="relative">
+          <z-icon
+            zType="mail"
+            class="absolute left-3 top-1/2 -translate-y-1/2 text-white/50 size-5"
+          ></z-icon>
+          <input
+            type="email"
+            z-input
+            formControlName="email"
+            placeholder="Enter your email"
+            class="w-full pl-10 bg-white/5 border-white/10 text-white placeholder-white/30 focus:border-amber-200/50"
+          />
+        </div>
+      </div>
+
+      <div class="space-y-2">
+        <label class="block text-sm font-medium text-emerald-50/90 pl-1">Password</label>
+        <div class="relative">
+          <z-icon
+            zType="lock"
+            class="absolute left-3 top-1/2 -translate-y-1/2 text-white/50 size-5"
+          ></z-icon>
+          <input
+            type="password"
+            z-input
+            formControlName="password"
+            placeholder="Enter your password"
+            class="w-full pl-10 bg-white/5 border-white/10 text-white placeholder-white/30 focus:border-amber-200/50"
+          />
+        </div>
+      </div>
+
+      @if (error()) {
+      <div
+        class="p-3 bg-red-500/20 border border-red-500/30 rounded-lg text-red-200 text-sm text-center"
+      >
+        {{ error() }}
+      </div>
+      }
+
+      <div class="pt-2">
+        <app-glass-button
+          type="submit"
+          class="w-full justify-center group"
+          [disabled]="isLoading()"
+        >
+          @if (isLoading()) {
+          <span class="animate-spin mr-2">⟳</span>
+          }
+          <span>Sign In</span>
+          <z-icon
+            zType="arrow-right"
+            class="ml-2 group-hover:translate-x-1 transition-transform size-4"
+          ></z-icon>
+        </app-glass-button>
+      </div>
+
+      <p class="text-center text-sm text-white/50">
+        Current session only. No registration required.
+      </p>
+    </form>
+  </div>
+</div>
