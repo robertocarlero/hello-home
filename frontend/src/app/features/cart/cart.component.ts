@@ -5,6 +5,7 @@ import { CartService } from '@core/services/cart.service';
 import { CartItem } from '@core/models/cart-item.interface';
 import { ZardButtonComponent } from '@shared/components/button/button.component';
 import { ZardIconComponent } from '@shared/components/icon/icon.component';
+import { ZardAlertDialogService } from '@shared/components/alert-dialog/alert-dialog.service';
 import { CartItemComponent } from './components/cart-item/cart-item.component';
 import { CartCheckoutSummaryComponent } from './components/cart-checkout-summary/cart-checkout-summary.component';
 
@@ -22,6 +23,7 @@ import { CartCheckoutSummaryComponent } from './components/cart-checkout-summary
 })
 export class CartComponent {
   private readonly router = inject(Router);
+  private readonly alertDialog = inject(ZardAlertDialogService);
   readonly cartService = inject(CartService);
 
   increaseQuantity(item: CartItem): void {
@@ -41,9 +43,20 @@ export class CartComponent {
   }
 
   clearCart(): void {
-    if (confirm('Are you sure you want to clear the cart?')) {
-      this.cartService.clearCart();
-    }
+    const dialogRef = this.alertDialog.confirm({
+      zTitle: 'Clear Cart',
+      zContent:
+        'Are you sure you want to clear all items from your cart? This action cannot be undone.',
+      zOkText: 'Clear Cart',
+      zCancelText: 'Cancel',
+      zOkDestructive: true,
+    });
+
+    dialogRef.afterClosed.subscribe((result) => {
+      if (result) {
+        this.cartService.clearCart();
+      }
+    });
   }
 
   continueShopping(): void {
@@ -51,7 +64,10 @@ export class CartComponent {
   }
 
   checkout(): void {
-    // TODO: Implement checkout functionality
-    alert('Checkout functionality coming soon!');
+    this.alertDialog.info({
+      zTitle: 'Coming Soon',
+      zContent: 'Checkout functionality will be available soon!',
+      zOkText: 'OK',
+    });
   }
 }
