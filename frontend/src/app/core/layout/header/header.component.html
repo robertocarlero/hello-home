@@ -41,7 +41,7 @@
     </app-glass-button>
 
     @if (authService.currentUser()) {
-    <app-glass-button (click)="logout()">
+    <app-glass-button (click)="navigateToProfile()">
       <z-icon zType="user" class="size-5"></z-icon>
     </app-glass-button>
     } @else {

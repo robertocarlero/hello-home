@@ -53,4 +53,8 @@ export class HeaderComponent {
         }
       });
   }
+
+  navigateToProfile(): void {
+    this.router.navigate(['/profile']);
+  }
 }

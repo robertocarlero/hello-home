@@ -14,6 +14,10 @@ export const routes: Routes = [
         path: 'cart',
         loadChildren: () => import('./features/cart/cart.routes').then((m) => m.routes),
       },
+      {
+        path: 'profile',
+        loadChildren: () => import('./features/auth/auth.routes').then((m) => m.routes),
+      },
     ],
   },
 ];

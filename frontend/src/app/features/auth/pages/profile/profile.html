@@ -1,0 +1,67 @@
+<div class="min-h-screen bg-gradient-to-br from-emerald-700 via-emerald-400 w-full py-24">
+  <div
+    class="max-w-2xl mx-auto bg-white/80 backdrop-blur-md border border-white/20 rounded-2xl p-8 shadow-xl"
+  >
+    <h1
+      class="text-3xl font-serif italic text-emerald-950 mb-8 border-b border-emerald-900/10 pb-4"
+    >
+      My Account
+    </h1>
+
+    @if (user()) {
+    <div class="space-y-6">
+      <div class="flex items-center space-x-4 pb-6 border-b border-emerald-900/10">
+        <div
+          class="w-16 h-16 rounded-full bg-emerald-600/10 text-emerald-700 flex items-center justify-center text-2xl font-bold border border-emerald-600/20"
+        >
+          {{ user()?.name?.charAt(0) || 'U' }}
+        </div>
+        <div>
+          <h2 class="text-xl font-medium text-emerald-950">{{ user()?.name }}</h2>
+          <p class="text-emerald-700 font-medium">{{ user()?.role }}</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="space-y-2">
+          <label class="text-sm font-bold text-emerald-800/60 uppercase tracking-wider"
+            >Email Address</label
+          >
+          <div
+            class="flex items-center text-emerald-950 font-medium bg-emerald-50/50 p-3 rounded-lg border border-emerald-100"
+          >
+            <z-icon zType="mail" class="mr-3 size-5 text-emerald-600"></z-icon>
+            {{ user()?.email }}
+          </div>
+        </div>
+
+        <div class="space-y-2">
+          <label class="text-sm font-bold text-emerald-800/60 uppercase tracking-wider"
+            >User ID</label
+          >
+          <div
+            class="flex items-center text-emerald-950 font-medium bg-emerald-50/50 p-3 rounded-lg border border-emerald-100"
+          >
+            <z-icon zType="badge-check" class="mr-3 size-5 text-emerald-600"></z-icon>
+            #{{ user()?.userId }}
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-8 flex justify-end">
+        <button z-button zType="destructive" (click)="logout()">
+          <span class="font-medium">Sign Out</span>
+          <z-icon zType="log-out" class="ml-2 size-4"></z-icon>
+        </button>
+      </div>
+    </div>
+    } @else {
+    <div class="text-center py-12">
+      <p class="text-emerald-700 font-medium flex items-center justify-center gap-2">
+        <z-icon zType="loader-circle" class="size-5 animate-spin"></z-icon>
+        Loading profile...
+      </p>
+    </div>
+    }
+  </div>
+</div>
