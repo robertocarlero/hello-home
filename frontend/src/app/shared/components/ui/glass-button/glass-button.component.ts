@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { ZardButtonComponent } from '../../button/button.component';
+import { ZardButtonComponent } from '@shared/components/button/button.component';
 import { mergeClasses } from '@shared/utils/merge-classes';
 
 @Component({

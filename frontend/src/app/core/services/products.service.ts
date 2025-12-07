@@ -1,9 +1,9 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Product } from '../models/product.interface';
-import { Category } from '../models/category.interface';
-import { GlobalConfig } from '../config/global.config';
+import { Product } from '@core/models/product.interface';
+import { Category } from '@core/models/category.interface';
+import { GlobalConfig } from '@core/config/global.config';
 
 @Injectable({
   providedIn: 'root',
