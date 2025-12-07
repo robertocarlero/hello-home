@@ -2,10 +2,16 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FeaturedProductsComponent } from '@features/products/components/featured-products/featured-products';
 import { HeroBannerComponent } from '@features/home/components/hero-banner/hero-banner';
 import { MissionStatementComponent } from '@features/home/components/mission-statement/mission-statement';
+import { EcoFeaturesComponent } from '@features/home/components/eco-features/eco-features';
 
 @Component({
   selector: 'app-home',
-  imports: [HeroBannerComponent, MissionStatementComponent, FeaturedProductsComponent],
+  imports: [
+    HeroBannerComponent,
+    MissionStatementComponent,
+    FeaturedProductsComponent,
+    EcoFeaturesComponent,
+  ],
   templateUrl: './home.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
