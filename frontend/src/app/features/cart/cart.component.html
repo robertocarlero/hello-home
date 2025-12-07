@@ -1,0 +1,53 @@
+<div
+  class="min-h-screen bg-gradient-to-br from-emerald-700 via-emerald-400 to-amber-200 py-20 px-4 sm:px-6 lg:px-8"
+>
+  <div class="max-w-5xl mx-auto">
+    <!-- Header -->
+    <div class="mb-8">
+      <h1 class="text-4xl font-bold text-gray-900 mb-2">Shopping Cart</h1>
+      <p class="text-amber-100">
+        @if (cartService.itemCount() > 0) { You have {{ cartService.itemCount() }}
+        {{ cartService.itemCount() === 1 ? 'item' : 'items' }} in your cart } @else { Your cart is
+        empty }
+      </p>
+    </div>
+
+    <!-- Cart Content -->
+    @if (cartService.cartItems().length > 0) {
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <!-- Cart Items -->
+      <div class="flex flex-col lg:col-span-2 gap-8">
+        @for (item of cartService.cartItems(); track item.product.id) {
+        <app-cart-item
+          [item]="item"
+          (increaseQuantity)="increaseQuantity($event)"
+          (decreaseQuantity)="decreaseQuantity($event)"
+          (removeItem)="removeItem($event)"
+        />
+        }
+      </div>
+
+      <!-- Order Summary -->
+      <div class="lg:col-span-1">
+        <app-cart-checkout-summary
+          [totalItems]="cartService.totalItems()"
+          [totalPrice]="cartService.totalPrice()"
+          (checkout)="checkout()"
+          (continueShopping)="continueShopping()"
+          (clearCart)="clearCart()"
+        />
+      </div>
+    </div>
+    } @else {
+    <!-- Empty Cart State -->
+    <div class="bg-white rounded-2xl shadow-lg p-12 text-center">
+      <div class="mb-6">
+        <z-icon zType="shopping-bag" class="size-24 text-gray-300 mx-auto"></z-icon>
+      </div>
+      <h2 class="text-2xl font-bold text-gray-900 mb-4">Your cart is empty</h2>
+      <p class="text-gray-600 mb-8">Looks like you haven't added any items to your cart yet.</p>
+      <z-button zVariant="primary" (click)="continueShopping()"> Start Shopping </z-button>
+    </div>
+    }
+  </div>
+</div>

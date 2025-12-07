@@ -1,0 +1,33 @@
+<div class="bg-white rounded-2xl shadow-lg p-6 sticky top-6">
+  <h2 class="text-2xl font-bold text-gray-900 mb-6">Order Summary</h2>
+
+  <div class="space-y-4 mb-6">
+    <div class="flex justify-between text-gray-600">
+      <span>Items ({{ totalItems() }})</span>
+      <span>{{ totalPrice() | currency }}</span>
+    </div>
+    <div class="flex justify-between text-gray-600">
+      <span>Shipping</span>
+      <span class="text-emerald-600 font-semibold">FREE</span>
+    </div>
+    <div class="border-t border-gray-200 pt-4">
+      <div class="flex justify-between text-xl font-bold text-gray-900">
+        <span>Total</span>
+        <span class="text-emerald-600">{{ totalPrice() | currency }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="space-y-3">
+    <z-button zFullWidth zVariant="primary" (click)="onCheckout()"> Proceed to Checkout </z-button>
+    <z-button zFullWidth zVariant="outline" (click)="onContinueShopping()">
+      Continue Shopping
+    </z-button>
+    <button
+      (click)="onClearCart()"
+      class="w-full text-red-500 hover:text-red-700 text-sm font-medium transition-colors py-2"
+    >
+      Clear Cart
+    </button>
+  </div>
+</div>
