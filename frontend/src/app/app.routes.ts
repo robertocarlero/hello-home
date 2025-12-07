@@ -8,7 +8,7 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        loadChildren: () => import('./features/products/home.routes').then((m) => m.routes),
+        loadChildren: () => import('./features/home/home.routes').then((m) => m.routes),
       },
     ],
   },

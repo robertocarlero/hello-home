@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { FeaturedProductsComponent } from 'src/app/features/products/components/featured-products/featured-products';
 import { HeroBannerComponent } from '../../components/hero-banner/hero-banner';
-import { FeaturedProductsComponent } from '../../components/featured-products/featured-products';
 
 @Component({
   selector: 'app-home',
