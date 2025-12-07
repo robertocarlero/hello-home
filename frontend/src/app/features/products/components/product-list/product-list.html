@@ -1,4 +1,13 @@
-<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+@if (title()) {
+<div class="mb-8">
+  <h2 class="text-2xl font-bold text-gray-900 sm:text-3xl">{{ title() }}</h2>
+  @if (description()) {
+  <p class="mt-2 text-lg text-gray-500">{{ description() }}</p>
+  }
+</div>
+}
+
+<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
   @for (product of products(); track product.id) {
   <app-product-card [product]="product" (addToCart)="addToCart.emit($event)"> </app-product-card>
   }

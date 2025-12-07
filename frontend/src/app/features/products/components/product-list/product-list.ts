@@ -11,5 +11,7 @@ import { ProductCardComponent } from '@features/products/components/product-card
 })
 export class ProductListComponent {
   products = input.required<Product[]>();
+  title = input<string>();
+  description = input<string>();
   addToCart = output<Product>();
 }

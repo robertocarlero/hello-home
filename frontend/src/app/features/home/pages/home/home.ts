@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FeaturedProductsComponent } from '@features/products/components/featured-products/featured-products';
-import { CategoryListComponent } from '@features/products/components/category-list/category-list';
+import { HomeCategoriesListContainerComponent } from '@features/home/components/home-categories-list-container/home-categories-list-container';
 import { HeroBannerComponent } from '@features/home/components/hero-banner/hero-banner';
 import { MissionStatementComponent } from '@features/home/components/mission-statement/mission-statement';
 import { EcoFeaturesComponent } from '@features/home/components/eco-features/eco-features';
@@ -11,7 +11,7 @@ import { EcoFeaturesComponent } from '@features/home/components/eco-features/eco
     HeroBannerComponent,
     MissionStatementComponent,
     FeaturedProductsComponent,
-    CategoryListComponent,
+    HomeCategoriesListContainerComponent,
     EcoFeaturesComponent,
   ],
   templateUrl: './home.html',

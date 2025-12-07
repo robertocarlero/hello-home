@@ -1,22 +1,17 @@
-import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ProductsService } from '@core/services/products.service';
+import { Component, input, output, ChangeDetectionStrategy } from '@angular/core';
+import { Category } from '@core/models/category.interface';
 import { CategoryCardComponent } from '../category-card/category-card';
-import { ZardIconComponent } from '@shared/components/icon/icon.component';
 
 @Component({
   selector: 'app-category-list',
   standalone: true,
-  imports: [CommonModule, CategoryCardComponent, ZardIconComponent],
+  imports: [CategoryCardComponent],
   templateUrl: './category-list.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CategoryListComponent {
-  private productsService = inject(ProductsService);
-  categories$ = this.productsService.getCategories();
-
-  onNavigate(category: any) {
-    console.log('Navigate to category:', category);
-    // TODO: Implement navigation
-  }
+  categories = input.required<Category[]>();
+  title = input<string>();
+  description = input<string>();
+  navigate = output<Category>();
 }

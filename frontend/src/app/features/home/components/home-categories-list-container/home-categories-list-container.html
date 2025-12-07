@@ -1,0 +1,7 @@
+@if (categories$ | async; as categories) {
+<app-category-list
+  [categories]="categories"
+  [title]="categoriesTitle"
+  (navigate)="onNavigate($event)"
+></app-category-list>
+}
