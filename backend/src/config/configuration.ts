@@ -5,4 +5,7 @@ export default () => ({
     clientSecret: process.env.SUPRA_CLIENT_SECRET,
     clientId: process.env.SUPRA_CLIENT_ID,
   },
+  jwt: {
+    secret: process.env.JWT_SECRET,
+  },
 });
