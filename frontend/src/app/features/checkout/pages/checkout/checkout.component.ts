@@ -1,6 +1,7 @@
 import { Component, signal, computed, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { switchMap, map } from 'rxjs/operators';
 import { CartService } from '../../../cart/services/cart.service';
 import { CheckoutService } from '../../services/checkout.service';
 import { CheckoutFormData } from '../../models/checkout-form-data.interface';
@@ -11,7 +12,7 @@ import { OrderSummaryComponent } from '../../components/order-summary/order-summ
 import { QuotePaymentComponent } from '../../components/quote-payment/quote-payment.component';
 import { QuoteResponse } from '../../models/quote-response.interface';
 import { PaymentRequest } from '../../models/payment-request.interface';
-import { generateOrderId } from '@shared/utils/order.utils';
+import { CreateOrderRequest } from '../../models/create-order-request.interface';
 import { ZardAlertDialogService } from '@shared/components/alert-dialog/alert-dialog.service';
 import { AuthService } from '../../../auth/services/auth.service';
 
@@ -90,8 +91,6 @@ export class CheckoutComponent {
     quote: QuoteResponse,
     customerData: CheckoutFormData
   ): PaymentRequest {
-    const orderId = generateOrderId();
-
     return {
       quoteId: quote.quoteId,
       currency: quote.finalCurrency,
@@ -103,8 +102,8 @@ export class CheckoutComponent {
         document: customerData.document,
         cellPhone: `+${customerData.cellPhone}`,
       },
-      referenceId: orderId,
-      description: `Order ${orderId}`,
+      referenceId: 'orderId',
+      description: `Order ${'orderId'}`,
       redirectUrl: `${window.location.origin}/checkout/payment-result`,
     };
   }
@@ -112,15 +111,35 @@ export class CheckoutComponent {
   private processPayment(paymentRequest: PaymentRequest): void {
     toast.loading('Processing payment...');
 
-    this.checkoutService.createPayment(paymentRequest).subscribe({
-      next: (paymentResponse) => {
-        toast.dismiss();
-        this.showPaymentRedirectDialog(paymentResponse.paymentLink);
-      },
-      error: (error) => {
-        this.handlePaymentError(error);
-      },
-    });
+    this.checkoutService
+      .createPayment(paymentRequest)
+      .pipe(
+        switchMap((paymentResponse) => {
+          const currentUser = this.authService.currentUser();
+          const orderRequest: CreateOrderRequest = {
+            userId: currentUser?.userId.toString() || '',
+            paymentId: paymentResponse.id,
+            items: this.cartItems().map((item) => ({
+              productId: item.product.id,
+              name: item.product.name,
+              quantity: item.quantity,
+              price: item.product.price,
+            })),
+            totalAmount: paymentResponse.amount,
+            currency: paymentResponse.currency,
+          };
+          return this.checkoutService.createOrder(orderRequest).pipe(map(() => paymentResponse));
+        })
+      )
+      .subscribe({
+        next: (paymentResponse) => {
+          toast.dismiss();
+          this.showPaymentRedirectDialog(paymentResponse.paymentLink);
+        },
+        error: (error) => {
+          this.handlePaymentError(error);
+        },
+      });
   }
 
   private showPaymentRedirectDialog(paymentUrl: string): void {

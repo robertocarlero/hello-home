@@ -1,6 +1,6 @@
 import { Injectable, signal, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { CartItem } from '../../cart/models/cart-item.interface';
 import { CheckoutFormData } from '../models/checkout-form-data.interface';
 import { OrderSummary } from '../models/order-summary.interface';
@@ -8,14 +8,16 @@ import { QuoteRequest } from '../models/quote-request.interface';
 import { QuoteResponse } from '../models/quote-response.interface';
 import { PaymentRequest } from '../models/payment-request.interface';
 import { PaymentResponse } from '../models/payment-response.interface';
-import { generateOrderId } from '@shared/utils/order.utils';
+import { CreateOrderRequest } from '../models/create-order-request.interface';
 import { GlobalConfig } from '@core/config/global.config';
+import { CartService } from '@features/cart/services/cart.service';
 @Injectable({
   providedIn: 'root',
 })
 export class CheckoutService {
   private readonly http = inject(HttpClient);
   private readonly TAX_RATE = 0.19; // 19% IVA
+  private readonly cartService = inject(CartService);
 
   private readonly _checkoutData = signal<Partial<CheckoutFormData>>({});
   readonly checkoutData = this._checkoutData.asReadonly();
@@ -57,6 +59,16 @@ export class CheckoutService {
   createPayment(paymentRequest: PaymentRequest): Observable<PaymentResponse> {
     const apiUrl = `${GlobalConfig.apiUrl}/payments`;
     return this.http.post<PaymentResponse>(apiUrl, paymentRequest);
+  }
+
+  createOrder(orderRequest: CreateOrderRequest): Observable<any> {
+    const apiUrl = `${GlobalConfig.apiUrl}/orders`;
+    return this.http.post<any>(apiUrl, orderRequest).pipe(
+      tap(() => {
+        this.clearCheckoutData();
+        this.cartService.clearCart();
+      })
+    );
   }
 
   getCountries(): Observable<any> {
