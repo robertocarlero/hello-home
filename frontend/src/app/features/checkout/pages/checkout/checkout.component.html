@@ -25,6 +25,7 @@
       } } @if (currentStep() === 'quote') {
       <app-quote-payment
         [orderTotal]="orderSummary().total"
+        [currency]="customerData()?.currency!"
         (quoteConfirmed)="onQuoteConfirmed($event)"
       />
       }

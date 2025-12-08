@@ -32,6 +32,69 @@
   </div>
 
   <div class="mb-6">
+    <label for="country" class="block text-sm font-medium text-gray-900 mb-2">Country *</label>
+    <div class="relative">
+      <select
+        id="country"
+        formControlName="country"
+        class="w-full h-10 px-3 bg-white border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-black focus:ring-1 focus:ring-black appearance-none"
+        [class.border-red-500]="form.get('country')?.invalid && form.get('country')?.touched"
+      >
+        <option value="">Select a country</option>
+        @for (country of countries(); track country.countryCode) {
+        <option [value]="country.countryCode">{{ country.countryName }}</option>
+        }
+      </select>
+      <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M19 9l-7 7-7-7"
+          />
+        </svg>
+      </div>
+    </div>
+    @if (form.get('country')?.invalid && form.get('country')?.touched) {
+    <span class="block text-xs text-red-500 mt-1">Country is required</span>
+    }
+  </div>
+
+  <div class="mb-6">
+    <label for="currency" class="block text-sm font-medium text-gray-900 mb-2">Currency *</label>
+    <div class="relative">
+      <select
+        id="currency"
+        formControlName="currency"
+        class="w-full h-10 px-3 bg-white border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-black focus:ring-1 focus:ring-black appearance-none"
+        [class.border-red-500]="form.get('currency')?.invalid && form.get('currency')?.touched"
+        [disabled]="!currencies().length"
+      >
+        <option value="">Select a currency</option>
+        @for (currency of currencies(); track currency.currencyCode) {
+        <option [value]="currency.currencyCode">{{ currency.currencyName }}</option>
+        }
+      </select>
+      <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M19 9l-7 7-7-7"
+          />
+        </svg>
+      </div>
+    </div>
+    @if (form.get('currency')?.invalid && form.get('currency')?.touched) {
+    <span class="block text-xs text-red-500 mt-1">Currency is required</span>
+    } @if (!currencies().length && form.get('country')?.value) {
+    <span class="block text-xs text-gray-500 mt-1">Loading currencies...</span>
+    }
+  </div>
+
+  <div class="mb-6">
     <label for="cellPhone" class="block text-sm font-medium text-gray-900 mb-2">Cell Phone *</label>
     <input
       z-input

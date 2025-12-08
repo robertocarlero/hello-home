@@ -7,4 +7,6 @@ export interface CheckoutFormData {
   cellPhone: string;
   document: string;
   documentType: DocumentType;
+  country: string;
+  currency?: string;
 }

@@ -1,4 +1,4 @@
-import { Injectable, signal, computed, inject } from '@angular/core';
+import { Injectable, signal, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CartItem } from '../../cart/models/cart-item.interface';
@@ -45,13 +45,13 @@ export class CheckoutService {
     this._checkoutData.set({});
   }
 
-  requestQuote(orderTotal: number): Observable<QuoteResponse> {
+  requestQuote(orderTotal: number, currency: string): Observable<QuoteResponse> {
     const apiUrl = `${GlobalConfig.apiUrl}/quotes`;
 
     const quoteRequest: QuoteRequest = {
-      orderTotal,
+      orderTotal: orderTotal * 100,
       initialCurrency: 'USD',
-      finalCurrency: 'COP',
+      finalCurrency: currency,
     };
 
     return this.http.post<QuoteResponse>(apiUrl, quoteRequest);
@@ -60,6 +60,16 @@ export class CheckoutService {
   createPayment(paymentRequest: PaymentRequest): Observable<PaymentResponse> {
     const apiUrl = `${GlobalConfig.apiUrl}/payments`;
     return this.http.post<PaymentResponse>(apiUrl, paymentRequest);
+  }
+
+  getCountries(): Observable<any> {
+    const apiUrl = `${GlobalConfig.apiUrl}/countries`;
+    return this.http.get<any>(apiUrl);
+  }
+
+  getCurrencies(countryCode: string): Observable<any> {
+    const apiUrl = `${GlobalConfig.apiUrl}/countries/${countryCode}/currencies`;
+    return this.http.get<any>(apiUrl);
   }
 
   async processOrder(

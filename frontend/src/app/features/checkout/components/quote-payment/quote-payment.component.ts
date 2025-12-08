@@ -27,6 +27,7 @@ export class QuotePaymentComponent implements OnInit, OnDestroy {
   private readonly checkoutService = inject(CheckoutService);
 
   readonly orderTotal = input.required<number>();
+  readonly currency = input.required<string>();
   readonly quoteConfirmed = output<QuoteResponse>();
 
   readonly quote = signal<QuoteResponse | null>(null);
@@ -73,7 +74,7 @@ export class QuotePaymentComponent implements OnInit, OnDestroy {
     this.isLoading.set(true);
     this.stopTimer();
 
-    this.checkoutService.requestQuote(this.orderTotal()).subscribe({
+    this.checkoutService.requestQuote(this.orderTotal(), this.currency()).subscribe({
       next: (response) => {
         this.quote.set(response);
         const expiresAt = new Date(response.expiresAt);
