@@ -62,7 +62,7 @@ describe('QuotesService', () => {
       expect(supraService.createExchangeQuote).toHaveBeenCalledWith({
         initialCurrency: 'USD',
         finalCurrency: 'COP',
-        initialAmount: 34900,
+        initialAmount: orderTotalUsd, // orderTotal is passed directly
       });
     });
 
@@ -76,9 +76,13 @@ describe('QuotesService', () => {
       expect(result).toEqual({
         quoteId: 'quote-123',
         initialAmount: 34900,
-        initialAmountHuman: 349.0,
+        finalAmount: 1036,
+        initialCurrency: 'USD',
+        finalCurrency: 'COP',
         exchangeRate: 3877.7916,
+        exchageRate: 3877.7916, // Typo kept for compatibility
         expiresAt: '2025-12-06T00:34:09.332Z',
+        transactionCost: 1000,
       });
     });
   });

@@ -23,9 +23,13 @@ export class QuotesService {
     return {
       quoteId: supraResponse.id,
       initialAmount: supraResponse.initialAmount,
-      initialAmountHuman: supraResponse.initialAmount / 100,
+      finalAmount: supraResponse.finalAmount,
       exchangeRate: supraResponse.exchangeRate,
       expiresAt: supraResponse.expiresAt,
+      initialCurrency: supraResponse.initialCurrency,
+      finalCurrency: supraResponse.finalCurrency,
+      exchageRate: supraResponse.exchangeRate,
+      transactionCost: supraResponse.transactionCost,
     };
   }
 }
