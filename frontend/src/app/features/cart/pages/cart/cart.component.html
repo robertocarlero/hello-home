@@ -51,3 +51,8 @@
     }
   </div>
 </div>
+
+<!-- Login Modal -->
+@if (showLoginModal()) {
+<app-login-modal (close)="onLoginSuccess($event)" />
+}
