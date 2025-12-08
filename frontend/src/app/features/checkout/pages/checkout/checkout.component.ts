@@ -39,8 +39,6 @@ export class CheckoutComponent {
     this.checkoutService.calculateOrderSummary(this.cartItems())
   );
 
-  readonly isProcessing = this.checkoutService.isProcessing;
-
   readonly currentStep = signal<'customer' | 'review' | 'quote'>('customer');
   readonly customerData = signal<CheckoutFormData | null>(null);
 

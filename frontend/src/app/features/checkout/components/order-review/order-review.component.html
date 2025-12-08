@@ -35,16 +35,8 @@
 
   <div class="flex flex-col sm:flex-row gap-4 mt-8 pt-8 border-t border-gray-200">
     <button z-button type="button" zType="outline" class="flex-1" (click)="onBack()">Back</button>
-    <button
-      z-button
-      type="button"
-      zType="default"
-      class="flex-1"
-      [disabled]="isProcessing()"
-      [zLoading]="isProcessing()"
-      (click)="onSubmit()"
-    >
-      Place Order
+    <button z-button type="button" zType="default" class="flex-1" (click)="onSubmit()">
+      Go to Payment
     </button>
   </div>
 </div>

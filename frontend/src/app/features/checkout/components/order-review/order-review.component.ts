@@ -15,7 +15,6 @@ import { OrderReviewItemComponent } from '../order-review-item/order-review-item
 export class OrderReviewComponent {
   customerData = input.required<CheckoutFormData>();
   cartItems = input.required<CartItem[]>();
-  isProcessing = input.required<boolean>();
 
   back = output<void>();
   submit = output<void>();

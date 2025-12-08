@@ -18,7 +18,6 @@
       <app-order-review
         [customerData]="data"
         [cartItems]="cartItems()"
-        [isProcessing]="isProcessing()"
         (back)="goToStep('customer')"
         (submit)="onOrderReview()"
       />
