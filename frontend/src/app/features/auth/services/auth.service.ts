@@ -38,6 +38,10 @@ export class AuthService {
     });
   }
 
+  clearSession(): void {
+    this.currentUser.set(null);
+  }
+
   checkAuth(): Observable<boolean> {
     return this.http.get<User>(`${this.apiUrl}/me`, { withCredentials: true }).pipe(
       tap((user) => this.currentUser.set(user)),

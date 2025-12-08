@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { Router } from '@angular/router';
+import { ChangeDetectionStrategy, Component, inject, signal, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ZardIconComponent } from '@shared/components/icon/icon.component';
 import { ZardInputDirective } from '@shared/components/input/input.directive';
 import { GlassButtonComponent } from '@shared/components/ui/glass-button/glass-button.component';
@@ -15,13 +15,28 @@ import { ZardAlertDialogService } from '@shared/components/alert-dialog/alert-di
   templateUrl: './header.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
   readonly cartService = inject(CartService);
   readonly authService = inject(AuthService);
   private readonly dialogService = inject(ZardAlertDialogService);
 
   showLoginModal = signal(false);
+
+  ngOnInit(): void {
+    this.route.queryParams.subscribe((params) => {
+      if (params['openLogin'] === 'true') {
+        this.showLoginModal.set(true);
+
+        this.router.navigate([], {
+          queryParams: { openLogin: null },
+          queryParamsHandling: 'merge',
+          replaceUrl: true,
+        });
+      }
+    });
+  }
 
   navigateToCart(): void {
     this.router.navigate(['/cart']);
