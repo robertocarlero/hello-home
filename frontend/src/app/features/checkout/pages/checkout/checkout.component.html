@@ -20,9 +20,14 @@
         [cartItems]="cartItems()"
         [isProcessing]="isProcessing()"
         (back)="goToStep('customer')"
-        (submit)="onOrderSubmit()"
+        (submit)="onOrderReview()"
       />
-      } }
+      } } @if (currentStep() === 'quote') {
+      <app-quote-payment
+        [orderTotal]="orderSummary().total"
+        (quoteConfirmed)="onQuoteConfirmed($event)"
+      />
+      }
     </div>
 
     <app-order-summary [orderSummary]="orderSummary()" />

@@ -8,12 +8,20 @@ import { toast } from 'ngx-sonner';
 import { CustomerFormComponent } from '../../components/customer-form/customer-form.component';
 import { OrderReviewComponent } from '../../components/order-review/order-review.component';
 import { OrderSummaryComponent } from '../../components/order-summary/order-summary.component';
+import { QuotePaymentComponent } from '../../components/quote-payment/quote-payment.component';
+import { QuoteResponse } from '../../models/quote-response.interface';
 
 import { AuthService } from '../../../auth/services/auth.service';
 
 @Component({
   selector: 'app-checkout',
-  imports: [CommonModule, CustomerFormComponent, OrderReviewComponent, OrderSummaryComponent],
+  imports: [
+    CommonModule,
+    CustomerFormComponent,
+    OrderReviewComponent,
+    OrderSummaryComponent,
+    QuotePaymentComponent,
+  ],
   templateUrl: './checkout.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -30,8 +38,9 @@ export class CheckoutComponent {
 
   readonly isProcessing = this.checkoutService.isProcessing;
 
-  readonly currentStep = signal<'customer' | 'review'>('customer');
+  readonly currentStep = signal<'customer' | 'review' | 'quote'>('customer');
   readonly customerData = signal<CheckoutFormData | null>(null);
+  readonly quoteData = signal<QuoteResponse | null>(null);
 
   readonly initialFormValues = computed<Partial<CheckoutFormData>>(() => {
     const existingData = this.customerData();
@@ -61,31 +70,25 @@ export class CheckoutComponent {
     this.currentStep.set('review');
   }
 
-  async onOrderSubmit(): Promise<void> {
+  onOrderReview(): void {
     const data = this.customerData();
     if (!data) {
       toast.error('Missing customer information');
       this.currentStep.set('customer');
       return;
     }
-
-    const summary = this.orderSummary();
-    const result = await this.checkoutService.processOrder(data, summary);
-
-    if (result.success) {
-      toast.success('Order placed successfully!', {
-        description: `Order ID: ${result.orderId}`,
-      });
-      this.cartService.clearCart();
-      await this.router.navigate(['/']);
-    } else {
-      toast.error('Order failed', {
-        description: result.error || 'Please try again',
-      });
-    }
+    this.currentStep.set('quote');
   }
 
-  goToStep(step: 'customer' | 'review'): void {
+  onQuoteConfirmed(quote: QuoteResponse): void {
+    this.quoteData.set(quote);
+    toast.success('Quote confirmed', {
+      description: 'Proceeding to payment...',
+    });
+    // TODO: Navigate to payment step when implemented
+  }
+
+  goToStep(step: 'customer' | 'review' | 'quote'): void {
     this.currentStep.set(step);
   }
 

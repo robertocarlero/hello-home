@@ -1,13 +1,18 @@
-import { Injectable, signal, computed } from '@angular/core';
+import { Injectable, signal, computed, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { CartItem } from '../../cart/models/cart-item.interface';
 import { CheckoutFormData } from '../models/checkout-form-data.interface';
 import { OrderSummary } from '../models/order-summary.interface';
+import { QuoteRequest } from '../models/quote-request.interface';
+import { QuoteResponse } from '../models/quote-response.interface';
 import { generateOrderId } from '@shared/utils/order.utils';
-
+import { GlobalConfig } from '@core/config/global.config';
 @Injectable({
   providedIn: 'root',
 })
 export class CheckoutService {
+  private readonly http = inject(HttpClient);
   private readonly TAX_RATE = 0.19; // 19% IVA
 
   private readonly _checkoutData = signal<Partial<CheckoutFormData>>({});
@@ -36,6 +41,18 @@ export class CheckoutService {
 
   clearCheckoutData(): void {
     this._checkoutData.set({});
+  }
+
+  requestQuote(orderTotal: number): Observable<QuoteResponse> {
+    const apiUrl = `${GlobalConfig.apiUrl}/quotes`;
+
+    const quoteRequest: QuoteRequest = {
+      orderTotal,
+      initialCurrency: 'USD',
+      finalCurrency: 'COP',
+    };
+
+    return this.http.post<QuoteResponse>(apiUrl, quoteRequest);
   }
 
   async processOrder(

@@ -1,0 +1,132 @@
+<div class="max-w-4xl mx-auto p-6">
+  @if (isLoading() && !quote()) {
+  <!-- Loading State -->
+  <div class="flex flex-col items-center justify-center py-12">
+    <i z-icon zType="loader-circle" class="animate-spin text-gray-400 mb-4" zSize="xl"></i>
+    <p class="text-gray-600 font-semibold">Requesting quote...</p>
+    <p class="text-gray-500 text-sm mt-2">Please wait while we get the best rate for you</p>
+  </div>
+  } @if (quote(); as currentQuote) {
+  <div class="border-b pb-4">
+    <h2 class="text-2xl font-bold text-gray-800">Payment Quote</h2>
+    <p class="text-sm text-gray-600 mt-1">Your quote for payment in Colombian Pesos</p>
+  </div>
+
+  <div class="flex flex-col gap-4 mt-4">
+    <!-- Timer Display -->
+    <div
+      class="flex items-center justify-between p-4 rounded-lg"
+      [class.bg-red-50]="isExpired()"
+      [class.bg-green-50]="!isExpired()"
+    >
+      <div class="flex items-center space-x-2">
+        <i
+          z-icon
+          [zType]="'clock'"
+          [class.text-red-600]="isExpired()"
+          [class.text-green-600]="!isExpired()"
+        ></i>
+        <span
+          class="font-semibold"
+          [class.text-red-700]="isExpired()"
+          [class.text-green-700]="!isExpired()"
+        >
+          @if (isExpired()) { Quote Expired } @else { Time Remaining }
+        </span>
+      </div>
+      <span
+        class="text-2xl font-mono font-bold"
+        [class.text-red-600]="isExpired()"
+        [class.text-green-600]="!isExpired()"
+      >
+        {{ formattedTime() }}
+      </span>
+    </div>
+
+    <!-- Quote Details -->
+    <div class="bg-gray-50 rounded-lg p-4 space-y-3">
+      <div class="flex justify-between items-center">
+        <span class="text-gray-600">Amount (USD)</span>
+        <span class="font-semibold text-gray-800">
+          ${{ (currentQuote.initialAmount / 100).toFixed(2) }} USD
+        </span>
+      </div>
+
+      <div class="flex justify-between items-center">
+        <span class="text-gray-600">Exchange Rate</span>
+        <span class="font-semibold text-gray-800">
+          {{ currentQuote.exchangeRate.toFixed(2) }}
+        </span>
+      </div>
+
+      <div class="flex justify-between items-center">
+        <span class="text-gray-600">Transaction Cost</span>
+        <span class="font-semibold text-gray-800">
+          ${{ (currentQuote.transactionCost / 100).toFixed(2) }} COP
+        </span>
+      </div>
+
+      <div class="border-t pt-3 flex justify-between items-center">
+        <span class="text-lg font-semibold text-gray-800">Total to Pay (COP)</span>
+        <span class="text-2xl font-bold text-blue-600">
+          ${{
+            (currentQuote.finalAmount / 100).toLocaleString('es-CO', {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2
+            })
+          }}
+          COP
+        </span>
+      </div>
+
+      <div class="text-xs text-gray-500 pt-2">
+        <div>Quote ID: {{ currentQuote.quoteId }}</div>
+        <div>Expires at: {{ currentQuote.expiresAt | date : 'medium' }}</div>
+      </div>
+    </div>
+
+    @if (isExpired()) {
+    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+      <div class="flex items-start space-x-2">
+        <i z-icon zType="triangle-alert" class="text-yellow-600 mt-0.5"></i>
+        <div>
+          <p class="font-semibold text-yellow-800">Quote Expired</p>
+          <p class="text-sm text-yellow-700">
+            This quote has expired. Please request a new quote to continue.
+          </p>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="flex gap-4 pt-4">
+    <button
+      z-button
+      type="button"
+      (click)="onRequestNewQuote()"
+      [disabled]="!canRequestNewQuote() || isLoading()"
+      [zLoading]="isLoading()"
+      zType="outline"
+      zSize="lg"
+      class="w-full shrink"
+    >
+      Request New Quote
+    </button>
+
+    <button
+      z-button
+      type="button"
+      (click)="onPay()"
+      [disabled]="!canPay() || isLoading()"
+      [zLoading]="isLoading()"
+      zType="default"
+      zSize="lg"
+      class="w-full shrink"
+    >
+      Proceed to Payment
+    </button>
+  </div>
+  }
+</div>
