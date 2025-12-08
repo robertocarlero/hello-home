@@ -1,0 +1,50 @@
+<div>
+  <h2 class="text-2xl font-bold text-gray-900 mb-6">Review Your Order</h2>
+
+  <div class="mb-8 pb-8 border-b border-gray-200">
+    <h3 class="text-lg font-semibold text-gray-900 mb-4">Customer Information</h3>
+    <div>
+      <p class="mb-2 text-gray-500">
+        <strong class="text-gray-900 font-medium">Name:</strong>
+        {{ customerData().fullName }}
+      </p>
+      <p class="mb-2 text-gray-500">
+        <strong class="text-gray-900 font-medium">Email:</strong>
+        {{ customerData().email }}
+      </p>
+      <p class="mb-2 text-gray-500">
+        <strong class="text-gray-900 font-medium">Cell Phone:</strong>
+        {{ customerData().cellPhone }}
+      </p>
+      <p class="mb-2 text-gray-500">
+        <strong class="text-gray-900 font-medium">Document:</strong>
+        {{ customerData().documentType }} -
+        {{ customerData().document }}
+      </p>
+    </div>
+  </div>
+
+  <div class="mb-8 pb-8 border-b border-gray-200 last:border-b-0 last:mb-0 last:pb-0">
+    <h3 class="text-lg font-semibold text-gray-900 mb-4">Order Items</h3>
+    <div class="flex flex-col gap-4">
+      @for (item of cartItems(); track item.product.id) {
+      <app-order-review-item [item]="item" />
+      }
+    </div>
+  </div>
+
+  <div class="flex flex-col sm:flex-row gap-4 mt-8 pt-8 border-t border-gray-200">
+    <button z-button type="button" zType="outline" class="flex-1" (click)="onBack()">Back</button>
+    <button
+      z-button
+      type="button"
+      zType="default"
+      class="flex-1"
+      [disabled]="isProcessing()"
+      [zLoading]="isProcessing()"
+      (click)="onSubmit()"
+    >
+      Place Order
+    </button>
+  </div>
+</div>

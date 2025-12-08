@@ -1,0 +1,111 @@
+<div [formGroup]="form">
+  <h2 class="text-2xl font-bold text-gray-900 mb-6">Customer Information</h2>
+
+  <div class="mb-6">
+    <label for="fullName" class="block text-sm font-medium text-gray-900 mb-2">Full Name *</label>
+    <input
+      z-input
+      type="text"
+      id="fullName"
+      formControlName="fullName"
+      placeholder="John Doe"
+      [class.border-red-500]="form.get('fullName')?.invalid && form.get('fullName')?.touched"
+    />
+    @if (form.get('fullName')?.invalid && form.get('fullName')?.touched) {
+    <span class="block text-xs text-red-500 mt-1">Full name is required</span>
+    }
+  </div>
+
+  <div class="mb-6">
+    <label for="email" class="block text-sm font-medium text-gray-900 mb-2">Email *</label>
+    <input
+      z-input
+      type="email"
+      id="email"
+      formControlName="email"
+      placeholder="john.doe@example.com"
+      [class.border-red-500]="form.get('email')?.invalid && form.get('email')?.touched"
+    />
+    @if (form.get('email')?.invalid && form.get('email')?.touched) {
+    <span class="block text-xs text-red-500 mt-1">Valid email is required</span>
+    }
+  </div>
+
+  <div class="mb-6">
+    <label for="cellPhone" class="block text-sm font-medium text-gray-900 mb-2">Cell Phone *</label>
+    <input
+      z-input
+      type="tel"
+      id="cellPhone"
+      formControlName="cellPhone"
+      placeholder="+573001234567"
+      [class.border-red-500]="form.get('cellPhone')?.invalid && form.get('cellPhone')?.touched"
+    />
+    @if (form.get('cellPhone')?.invalid && form.get('cellPhone')?.touched) {
+    <span class="block text-xs text-red-500 mt-1">Valid cell phone is required</span>
+    }
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <div class="mb-6">
+      <label for="documentType" class="block text-sm font-medium text-gray-900 mb-2"
+        >Document Type *</label
+      >
+      <div class="relative">
+        <select
+          id="documentType"
+          formControlName="documentType"
+          class="w-full h-10 px-3 bg-white border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-black focus:ring-1 focus:ring-black appearance-none"
+          [class.border-red-500]="
+            form.get('documentType')?.invalid && form.get('documentType')?.touched
+          "
+        >
+          <option value="">Select type</option>
+          <option value="CC">CC - Cédula de Ciudadanía</option>
+          <option value="NIT">NIT - Número de Identificación Tributaria</option>
+          <option value="CE">CE - Cédula de Extranjería</option>
+          <option value="PA">PA - Pasaporte</option>
+        </select>
+        <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+          <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M19 9l-7 7-7-7"
+            />
+          </svg>
+        </div>
+      </div>
+      @if (form.get('documentType')?.invalid && form.get('documentType')?.touched) {
+      <span class="block text-xs text-red-500 mt-1">Document type is required</span>
+      }
+    </div>
+
+    <div class="mb-6">
+      <label for="document" class="block text-sm font-medium text-gray-900 mb-2"
+        >Document Number *</label
+      >
+      <input
+        z-input
+        type="text"
+        id="document"
+        formControlName="document"
+        placeholder="123456789"
+        [class.border-red-500]="form.get('document')?.invalid && form.get('document')?.touched"
+      />
+      @if (form.get('document')?.invalid && form.get('document')?.touched) {
+      <span class="block text-xs text-red-500 mt-1">Document number is required</span>
+      }
+    </div>
+  </div>
+
+  <div class="flex flex-col sm:flex-row gap-4 mt-8 pt-8 border-t border-gray-200">
+    <button z-button type="button" zType="outline" class="flex-1" (click)="onCancel()">
+      Back to Cart
+    </button>
+    <button z-button type="button" zType="default" class="flex-1" (click)="onContinue()">
+      Review Order
+    </button>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+<div
+  class="min-h-screen bg-gradient-to-br from-emerald-700 via-emerald-400 to-amber-200 py-20 px-4 sm:px-6 lg:px-8"
+>
+  <div class="mb-8 sm:mb-12">
+    <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-8 text-center">Checkout</h1>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-8 items-start">
+    <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm">
+      @if (currentStep() === 'customer') {
+      <app-customer-form
+        [initialData]="initialFormValues()"
+        [disabledFields]="disabledFormFields()"
+        (submitForm)="onCustomerFormSubmit($event)"
+        (cancel)="cancelCheckout()"
+      />
+      } @if (currentStep() === 'review') { @if (customerData(); as data) {
+      <app-order-review
+        [customerData]="data"
+        [cartItems]="cartItems()"
+        [isProcessing]="isProcessing()"
+        (back)="goToStep('customer')"
+        (submit)="onOrderSubmit()"
+      />
+      } }
+    </div>
+
+    <app-order-summary [orderSummary]="orderSummary()" />
+  </div>
+</div>

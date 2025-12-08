@@ -64,10 +64,6 @@ export class CartComponent {
   }
 
   checkout(): void {
-    this.alertDialog.info({
-      zTitle: 'Coming Soon',
-      zContent: 'Checkout functionality will be available soon!',
-      zOkText: 'OK',
-    });
+    this.router.navigate(['/checkout']);
   }
 }

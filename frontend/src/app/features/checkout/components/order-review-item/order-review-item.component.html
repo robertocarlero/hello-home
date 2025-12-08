@@ -1,0 +1,14 @@
+<div class="flex items-center gap-4 p-4 bg-gray-50 rounded-lg">
+  <img
+    [src]="item().product.imageUrl"
+    [alt]="item().product.name"
+    class="w-[60px] h-[60px] object-cover rounded-lg"
+  />
+  <div class="flex-1">
+    <h4 class="text-base font-medium text-gray-900 mb-1">{{ item().product.name }}</h4>
+    <p class="text-sm text-gray-500">Quantity: {{ item().quantity }}</p>
+  </div>
+  <div class="font-semibold text-gray-900">
+    {{ item().product.price * item().quantity | currency }}
+  </div>
+</div>
