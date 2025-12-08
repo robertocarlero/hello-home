@@ -6,6 +6,8 @@ import { CheckoutFormData } from '../models/checkout-form-data.interface';
 import { OrderSummary } from '../models/order-summary.interface';
 import { QuoteRequest } from '../models/quote-request.interface';
 import { QuoteResponse } from '../models/quote-response.interface';
+import { PaymentRequest } from '../models/payment-request.interface';
+import { PaymentResponse } from '../models/payment-response.interface';
 import { generateOrderId } from '@shared/utils/order.utils';
 import { GlobalConfig } from '@core/config/global.config';
 @Injectable({
@@ -53,6 +55,11 @@ export class CheckoutService {
     };
 
     return this.http.post<QuoteResponse>(apiUrl, quoteRequest);
+  }
+
+  createPayment(paymentRequest: PaymentRequest): Observable<PaymentResponse> {
+    const apiUrl = `${GlobalConfig.apiUrl}/payments`;
+    return this.http.post<PaymentResponse>(apiUrl, paymentRequest);
   }
 
   async processOrder(
