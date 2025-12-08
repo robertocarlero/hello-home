@@ -6,6 +6,7 @@ import { PaymentsModule } from './payments/payments.module';
 import { ProductsModule } from './products/products.module';
 import { CountriesModule } from './countries/countries.module';
 import { AuthModule } from './auth/auth.module';
+import { OrdersModule } from './orders/orders.module';
 import configuration from '@/config/configuration';
 
 @Module({
@@ -20,6 +21,7 @@ import configuration from '@/config/configuration';
     ProductsModule,
     CountriesModule,
     AuthModule,
+    OrdersModule,
   ],
   controllers: [],
   providers: [],
