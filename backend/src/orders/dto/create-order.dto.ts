@@ -1,5 +1,34 @@
-import { IsArray, IsNumber, IsString, ValidateNested } from 'class-validator';
+import {
+  IsArray,
+  IsNumber,
+  IsString,
+  ValidateNested,
+  IsNotEmpty,
+  IsEmail,
+} from 'class-validator';
 import { Type } from 'class-transformer';
+
+export class PayerDto {
+  @IsNotEmpty()
+  @IsString()
+  fullName: string;
+
+  @IsNotEmpty()
+  @IsEmail()
+  email: string;
+
+  @IsNotEmpty()
+  @IsString()
+  documentType: string;
+
+  @IsNotEmpty()
+  @IsString()
+  document: string;
+
+  @IsNotEmpty()
+  @IsString()
+  cellPhone: string;
+}
 
 class OrderItemDto {
   @IsString()
@@ -20,7 +49,21 @@ export class CreateOrderDto {
   userId: string;
 
   @IsString()
-  paymentId: string;
+  quoteId: string;
+
+  @IsNotEmpty()
+  @ValidateNested()
+  @Type(() => PayerDto)
+  payer: PayerDto;
+
+  @IsString()
+  referenceId: string;
+
+  @IsString()
+  description: string;
+
+  @IsString()
+  redirectUrl: string;
 
   @IsArray()
   @ValidateNested({ each: true })

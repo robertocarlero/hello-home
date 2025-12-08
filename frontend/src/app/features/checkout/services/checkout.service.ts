@@ -6,8 +6,6 @@ import { CheckoutFormData } from '../models/checkout-form-data.interface';
 import { OrderSummary } from '../models/order-summary.interface';
 import { QuoteRequest } from '../models/quote-request.interface';
 import { QuoteResponse } from '../models/quote-response.interface';
-import { PaymentRequest } from '../models/payment-request.interface';
-import { PaymentResponse } from '../models/payment-response.interface';
 import { CreateOrderRequest } from '../models/create-order-request.interface';
 import { GlobalConfig } from '@core/config/global.config';
 import { CartService } from '@features/cart/services/cart.service';
@@ -54,11 +52,6 @@ export class CheckoutService {
     };
 
     return this.http.post<QuoteResponse>(apiUrl, quoteRequest);
-  }
-
-  createPayment(paymentRequest: PaymentRequest): Observable<PaymentResponse> {
-    const apiUrl = `${GlobalConfig.apiUrl}/payments`;
-    return this.http.post<PaymentResponse>(apiUrl, paymentRequest);
   }
 
   createOrder(orderRequest: CreateOrderRequest): Observable<any> {

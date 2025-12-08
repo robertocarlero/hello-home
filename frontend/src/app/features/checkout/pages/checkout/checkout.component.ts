@@ -1,7 +1,7 @@
 import { Component, signal, computed, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { switchMap, map } from 'rxjs/operators';
+
 import { CartService } from '../../../cart/services/cart.service';
 import { CheckoutService } from '../../services/checkout.service';
 import { CheckoutFormData } from '../../models/checkout-form-data.interface';
@@ -11,7 +11,6 @@ import { OrderReviewComponent } from '../../components/order-review/order-review
 import { OrderSummaryComponent } from '../../components/order-summary/order-summary.component';
 import { QuotePaymentComponent } from '../../components/quote-payment/quote-payment.component';
 import { QuoteResponse } from '../../models/quote-response.interface';
-import { PaymentRequest } from '../../models/payment-request.interface';
 import { CreateOrderRequest } from '../../models/create-order-request.interface';
 import { ZardAlertDialogService } from '@shared/components/alert-dialog/alert-dialog.service';
 import { AuthService } from '../../../auth/services/auth.service';
@@ -83,18 +82,20 @@ export class CheckoutComponent {
 
   onQuoteConfirmed(quote: QuoteResponse): void {
     const customerData = this.customerData();
-    const paymentRequest = this.buildPaymentRequest(quote, customerData!);
-    this.processPayment(paymentRequest);
+    const orderRequest = this.buildOrderRequest(quote, customerData!);
+    this.processOrder(orderRequest);
   }
 
-  private buildPaymentRequest(
+  private buildOrderRequest(
     quote: QuoteResponse,
     customerData: CheckoutFormData
-  ): PaymentRequest {
+  ): CreateOrderRequest {
+    const currentUser = this.authService.currentUser();
+    const orderId = 'order-' + Date.now(); // Temporary ID for reference, backend generates real ID
+
     return {
+      userId: currentUser?.userId.toString() || '',
       quoteId: quote.quoteId,
-      currency: quote.finalCurrency,
-      amount: quote.finalAmount,
       payer: {
         fullName: customerData.fullName,
         email: customerData.email,
@@ -102,44 +103,37 @@ export class CheckoutComponent {
         document: customerData.document,
         cellPhone: `+${customerData.cellPhone}`,
       },
-      referenceId: 'orderId',
-      description: `Order ${'orderId'}`,
+      referenceId: orderId,
+      description: `Order ${orderId}`,
       redirectUrl: `${window.location.origin}/checkout/payment-result`,
+      items: this.cartItems().map((item) => ({
+        productId: item.product.id,
+        name: item.product.name,
+        quantity: item.quantity,
+        price: item.product.price,
+      })),
+      totalAmount: quote.finalAmount,
+      currency: quote.finalCurrency,
     };
   }
 
-  private processPayment(paymentRequest: PaymentRequest): void {
-    toast.loading('Processing payment...');
+  private processOrder(orderRequest: CreateOrderRequest): void {
+    toast.loading('Processing order...');
 
-    this.checkoutService
-      .createPayment(paymentRequest)
-      .pipe(
-        switchMap((paymentResponse) => {
-          const currentUser = this.authService.currentUser();
-          const orderRequest: CreateOrderRequest = {
-            userId: currentUser?.userId.toString() || '',
-            paymentId: paymentResponse.id,
-            items: this.cartItems().map((item) => ({
-              productId: item.product.id,
-              name: item.product.name,
-              quantity: item.quantity,
-              price: item.product.price,
-            })),
-            totalAmount: paymentResponse.amount,
-            currency: paymentResponse.currency,
-          };
-          return this.checkoutService.createOrder(orderRequest).pipe(map(() => paymentResponse));
-        })
-      )
-      .subscribe({
-        next: (paymentResponse) => {
-          toast.dismiss();
-          this.showPaymentRedirectDialog(paymentResponse.paymentLink);
-        },
-        error: (error) => {
-          this.handlePaymentError(error);
-        },
-      });
+    this.checkoutService.createOrder(orderRequest).subscribe({
+      next: (response) => {
+        toast.dismiss();
+        if (response.paymentLink) {
+          this.showPaymentRedirectDialog(response.paymentLink);
+        } else {
+          toast.success('Order created successfully');
+          this.router.navigate(['/']);
+        }
+      },
+      error: (error) => {
+        this.handlePaymentError(error);
+      },
+    });
   }
 
   private showPaymentRedirectDialog(paymentUrl: string): void {
