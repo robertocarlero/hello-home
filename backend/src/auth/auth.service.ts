@@ -19,8 +19,8 @@ export class AuthService {
     try {
       const user = await this.usersService.findOne(email);
       if (user && user.password === pass) {
-        const { password, ...result } = user;
-        return { ...result };
+        const { password, id, ...result } = user;
+        return { ...result, userId: id };
       }
       return null;
     } catch (error) {
@@ -33,9 +33,10 @@ export class AuthService {
     try {
       const payload = {
         email: user.email,
-        sub: user.id,
+        sub: user.userId || user.id,
         role: user.role,
         name: user.name,
+        userId: user.userId || user.id,
       };
       return {
         access_token: this.jwtService.sign(payload),

@@ -10,4 +10,11 @@ import { AuthService } from '@features/auth/services/auth.service';
 })
 export class App {
   private authService = inject(AuthService);
+  userIsLoggedIn = false;
+
+  ngOnInit(): void {
+    this.authService.checkAuth().subscribe((isLoggedIn) => {
+      this.userIsLoggedIn = isLoggedIn;
+    });
+  }
 }
