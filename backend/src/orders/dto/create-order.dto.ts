@@ -57,12 +57,6 @@ export class CreateOrderDto {
   payer: PayerDto;
 
   @IsString()
-  referenceId: string;
-
-  @IsString()
-  description: string;
-
-  @IsString()
   redirectUrl: string;
 
   @IsArray()
@@ -72,6 +66,18 @@ export class CreateOrderDto {
 
   @IsNumber()
   totalAmount: number;
+
+  @IsNumber()
+  transactionCost: number;
+
+  @IsNumber()
+  initialAmount: number;
+
+  @IsNumber()
+  exchangeRate: number;
+
+  @IsNumber()
+  tax: number;
 
   @IsString()
   currency: string;

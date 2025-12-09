@@ -126,15 +126,11 @@ describe('PaymentsService', () => {
         status: 'COMPLETED',
       };
 
-      const expectedServiceResponse = {
-        id: paymentId,
-        status: 'COMPLETED',
-        raw: mockApiResponse,
-      };
+      const expectedServiceResponse = mockApiResponse;
 
       mockSupraService.getPayinPayment.mockResolvedValue(mockApiResponse);
 
-      const result = await service.getPaymentStatus(paymentId);
+      const result = await service.getPaymentById(paymentId);
 
       expect(supraService.getPayinPayment).toHaveBeenCalledWith(paymentId);
       expect(result).toEqual(expectedServiceResponse);

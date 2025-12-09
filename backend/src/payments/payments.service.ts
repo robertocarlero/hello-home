@@ -34,61 +34,17 @@ export class PaymentsService {
     } catch (error) {
       this.logger.error('Error creating payment:', error);
 
-      if (error.response) {
-        // Error from Supra API
-        throw new HttpException(
-          {
-            statusCode: error.response.status || HttpStatus.BAD_REQUEST,
-            message: error.response.data?.message || 'Payment creation failed',
-            error: error.response.data?.error || 'Bad Request',
-            details: error.response.data,
-          },
-          error.response.status || HttpStatus.BAD_REQUEST,
-        );
-      }
-
-      // Generic error
-      throw new HttpException(
-        {
-          statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
-          message: 'Failed to create payment',
-          error: 'Internal Server Error',
-        },
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      return null;
     }
   }
 
-  async getPaymentStatus(id: string) {
+  async getPaymentById(id: string) {
     try {
       const payment = await this.supra.getPayinPayment(id);
-      return {
-        id: payment.id,
-        status: payment.status,
-        raw: payment,
-      };
+      return payment;
     } catch (error) {
       this.logger.error(`Error getting payment status for ${id}:`, error);
-
-      if (error.response) {
-        throw new HttpException(
-          {
-            statusCode: error.response.status || HttpStatus.NOT_FOUND,
-            message: error.response.data?.message || 'Payment not found',
-            error: error.response.data?.error || 'Not Found',
-          },
-          error.response.status || HttpStatus.NOT_FOUND,
-        );
-      }
-
-      throw new HttpException(
-        {
-          statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
-          message: 'Failed to get payment status',
-          error: 'Internal Server Error',
-        },
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      return null;
     }
   }
 }

@@ -11,7 +11,12 @@ export class Order {
   paymentId: string;
   items: OrderItem[];
   totalAmount: number;
-  currency: string;
-  status: 'PENDING' | 'PAID' | 'CANCELLED';
+  tax: number;
+  status: 'PENDING' | 'EXPIRED' | 'CREATED' | 'PAID' | 'FAILED';
   createdAt: Date;
+  quoteId: string;
+  exchangeRate: number;
+  transactionCost: number;
+  initialAmount: number;
+  paymentLink: string;
 }

@@ -1,0 +1,46 @@
+<div
+  class="min-h-screen bg-gradient-to-br from-emerald-700 via-emerald-400 to-amber-200 py-20 px-4 sm:px-6 lg:px-8"
+>
+  <div class="max-w-3xl mx-auto">
+    <div class="text-center mb-8">
+      <h2 class="text-3xl font-extrabold text-gray-900">Payment Status</h2>
+      <p class="mt-2 text-lg text-amber-100">Checking the status of your recent orders.</p>
+    </div>
+
+    @if (isLoading()) {
+    <div class="flex justify-center my-12">
+      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
+    </div>
+    } @else {
+    <div>
+      @if (order() === null) {
+      <div class="bg-white rounded-lg shadow-sm p-8 text-center">
+        <p class="text-gray-500 text-lg">No orders found.</p>
+        <button
+          (click)="onContinueShopping()"
+          class="mt-4 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition"
+        >
+          Return to Home
+        </button>
+      </div>
+      } @else {
+      <div>
+        <app-order-status-card
+          [order]="order()"
+          (retry)="onRetryPayment($event)"
+        ></app-order-status-card>
+      </div>
+      }
+
+      <div class="mt-8 text-center">
+        <button
+          (click)="onContinueShopping()"
+          class="text-gray-900 hover:text-gray-700 font-medium bg-white px-6 py-2 rounded-lg shadow-sm hover:shadow transition"
+        >
+          Continue Shopping
+        </button>
+      </div>
+    </div>
+    }
+  </div>
+</div>

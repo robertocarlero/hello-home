@@ -1,1 +1,6 @@
-export type PaymentStatus = 'PENDING' | 'EXPIRED' | 'CREATED';
+export type PaymentStatus =
+  | 'PENDING'
+  | 'EXPIRED'
+  | 'CREATED'
+  | 'PAID'
+  | 'FAILED';

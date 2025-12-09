@@ -9,6 +9,7 @@ import { QuoteResponse } from '../models/quote-response.interface';
 import { CreateOrderRequest } from '../models/create-order-request.interface';
 import { GlobalConfig } from '@core/config/global.config';
 import { CartService } from '@features/cart/services/cart.service';
+import { OrderResponse } from '../models/order-response';
 @Injectable({
   providedIn: 'root',
 })
@@ -62,6 +63,11 @@ export class CheckoutService {
         this.cartService.clearCart();
       })
     );
+  }
+
+  getOrderByUserId(userId: string): Observable<OrderResponse> {
+    const apiUrl = `${GlobalConfig.apiUrl}/orders/user/${userId}`;
+    return this.http.get<OrderResponse>(apiUrl);
   }
 
   getCountries(): Observable<any> {

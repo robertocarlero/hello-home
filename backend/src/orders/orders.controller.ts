@@ -11,8 +11,8 @@ export class OrdersController {
     return this.ordersService.create(createOrderDto);
   }
 
-  @Get('user/:userId/pending')
-  findAllPendingByUser(@Param('userId') userId: string) {
-    return this.ordersService.findAllByUser(userId);
+  @Get('user/:userId')
+  findOrderByUser(@Param('userId') userId: string) {
+    return this.ordersService.findOrderByUser(userId);
   }
 }

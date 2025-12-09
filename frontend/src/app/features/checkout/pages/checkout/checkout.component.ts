@@ -91,7 +91,6 @@ export class CheckoutComponent {
     customerData: CheckoutFormData
   ): CreateOrderRequest {
     const currentUser = this.authService.currentUser();
-    const orderId = 'order-' + Date.now(); // Temporary ID for reference, backend generates real ID
 
     return {
       userId: currentUser?.userId.toString() || '',
@@ -103,8 +102,6 @@ export class CheckoutComponent {
         document: customerData.document,
         cellPhone: `+${customerData.cellPhone}`,
       },
-      referenceId: orderId,
-      description: `Order ${orderId}`,
       redirectUrl: `${window.location.origin}/checkout/payment-result`,
       items: this.cartItems().map((item) => ({
         productId: item.product.id,
@@ -113,7 +110,11 @@ export class CheckoutComponent {
         price: item.product.price,
       })),
       totalAmount: quote.finalAmount,
+      tax: this.orderSummary().tax,
       currency: quote.finalCurrency,
+      exchangeRate: quote.exchangeRate,
+      transactionCost: quote.transactionCost,
+      initialAmount: quote.initialAmount,
     };
   }
 

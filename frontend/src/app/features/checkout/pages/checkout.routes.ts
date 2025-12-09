@@ -9,4 +9,10 @@ export const routes: Routes = [
     component: CheckoutComponent,
     canActivate: [authGuard, cartNotEmptyGuard],
   },
+  {
+    path: 'payment-result',
+    loadComponent: () =>
+      import('./payment-result/payment-result.component').then((m) => m.PaymentResultComponent),
+    canActivate: [authGuard],
+  },
 ];

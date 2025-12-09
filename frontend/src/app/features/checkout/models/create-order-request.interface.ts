@@ -10,8 +10,6 @@ export interface CreateOrderRequest {
   userId: string;
   quoteId: string;
   payer: Payer;
-  referenceId: string;
-  description: string;
   redirectUrl: string;
   items: Array<{
     productId: string;
@@ -20,5 +18,9 @@ export interface CreateOrderRequest {
     price: number;
   }>;
   totalAmount: number;
+  tax: number;
   currency: string;
+  exchangeRate: number;
+  transactionCost: number;
+  initialAmount: number;
 }

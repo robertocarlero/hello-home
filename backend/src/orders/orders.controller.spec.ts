@@ -3,6 +3,7 @@ import { OrdersController } from './orders.controller';
 import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { PaymentsService } from '../payments/payments.service';
+import { SupraService } from '@/supra/supra.service';
 
 describe('OrdersController', () => {
   let controller: OrdersController;
@@ -13,6 +14,11 @@ describe('OrdersController', () => {
       id: 'pay-1',
       paymentLink: 'http://payment.link',
     }),
+    getPaymentById: jest.fn().mockResolvedValue({ status: 'PENDING' }),
+  };
+
+  const mockSupraService = {
+    getExchangeQuote: jest.fn().mockResolvedValue({}),
   };
 
   beforeEach(async () => {
@@ -23,6 +29,10 @@ describe('OrdersController', () => {
         {
           provide: PaymentsService,
           useValue: mockPaymentsService,
+        },
+        {
+          provide: SupraService,
+          useValue: mockSupraService,
         },
       ],
     }).compile();
@@ -46,11 +56,10 @@ describe('OrdersController', () => {
         document: '123456',
         cellPhone: '1234567890',
       },
-      referenceId: 'ref-1',
-      description: 'Test Order',
       redirectUrl: 'http://redirect.url',
       items: [],
       totalAmount: 100,
+      tax: 19,
       currency: 'USD',
     };
     const order = await controller.create(createOrderDto);
@@ -69,17 +78,16 @@ describe('OrdersController', () => {
         document: '123456',
         cellPhone: '1234567890',
       },
-      referenceId: 'ref-1',
-      description: 'Test Order',
       redirectUrl: 'http://redirect.url',
       items: [],
       totalAmount: 100,
+      tax: 19,
       currency: 'USD',
     };
     await service.create(createOrderDto);
 
-    const orders = controller.findAllPendingByUser('user-1');
-    expect(orders.length).toBe(1);
-    expect(orders[0].userId).toBe('user-1');
+    const order = await controller.findOrderByUser('user-1');
+    expect(order).toBeDefined();
+    expect(order!.status).toBe('PENDING');
   });
 });

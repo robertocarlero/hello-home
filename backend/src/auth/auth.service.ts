@@ -1,6 +1,5 @@
 import {
   Injectable,
-  UnauthorizedException,
   InternalServerErrorException,
   Logger,
 } from '@nestjs/common';
@@ -21,7 +20,7 @@ export class AuthService {
       const user = await this.usersService.findOne(email);
       if (user && user.password === pass) {
         const { password, ...result } = user;
-        return result;
+        return { ...result };
       }
       return null;
     } catch (error) {
