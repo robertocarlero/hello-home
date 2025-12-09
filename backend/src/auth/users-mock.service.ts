@@ -10,6 +10,13 @@ export class UsersMockService {
       name: 'Usuario Demo',
       role: 'customer',
     },
+    {
+      id: 2,
+      email: 'admintest@example.com',
+      password: 'adminpassword123',
+      name: 'Admin User',
+      role: 'admin',
+    },
   ];
 
   async findOne(email: string) {

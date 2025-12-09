@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { MainLayoutComponent } from './core/layout/main-layout/main-layout.component';
+import { adminGuard } from './core/guards/admin.guard';
 
 export const routes: Routes = [
   {
@@ -22,6 +23,12 @@ export const routes: Routes = [
       {
         path: 'profile',
         loadChildren: () => import('./features/auth/pages/auth.routes').then((m) => m.routes),
+      },
+      {
+        path: 'balances',
+        loadChildren: () =>
+          import('./features/balances/pages/balances.routes').then((m) => m.BALANCES_ROUTES),
+        canActivate: [adminGuard],
       },
     ],
   },

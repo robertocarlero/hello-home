@@ -40,7 +40,11 @@
       }
     </app-glass-button>
 
-    @if (authService.currentUser()) {
+    @if (authService.currentUser()) { @if (isAdmin()) {
+    <app-glass-button (click)="navigateToBalances()">
+      <z-icon zType="circle-dollar-sign" class="size-5"></z-icon>
+    </app-glass-button>
+    }
     <app-glass-button (click)="navigateToProfile()">
       <z-icon zType="user" class="size-5"></z-icon>
     </app-glass-button>

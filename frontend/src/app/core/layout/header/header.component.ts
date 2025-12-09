@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, inject, signal, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  signal,
+  OnInit,
+  computed,
+} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ZardIconComponent } from '@shared/components/icon/icon.component';
 import { ZardInputDirective } from '@shared/components/input/input.directive';
@@ -23,6 +30,7 @@ export class HeaderComponent implements OnInit {
   private readonly dialogService = inject(ZardAlertDialogService);
 
   showLoginModal = signal(false);
+  isAdmin = computed(() => this.authService.currentUser()?.role === 'admin');
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
@@ -71,5 +79,9 @@ export class HeaderComponent implements OnInit {
 
   navigateToProfile(): void {
     this.router.navigate(['/profile']);
+  }
+
+  navigateToBalances(): void {
+    this.router.navigate(['/balances']);
   }
 }
