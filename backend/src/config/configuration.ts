@@ -8,4 +8,5 @@ export default () => ({
   jwt: {
     secret: process.env.JWT_SECRET,
   },
+  origins: process.env.ALLOWED_ORIGINS?.split(',') ?? [''],
 });
