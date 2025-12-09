@@ -9,7 +9,6 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import type { Response, Request } from 'express';
 import { JwtAuthGuard } from './jwt-auth.guard';
 
 @Controller('auth')
@@ -17,10 +16,7 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Post('login')
-  async login(
-    @Body() body: any,
-    @Res({ passthrough: true }) response: Response,
-  ) {
+  async login(@Body() body: any, @Res({ passthrough: true }) response) {
     const { email, password } = body;
     const user = await this.authService.validateUser(email, password);
     if (!user) {
@@ -39,7 +35,7 @@ export class AuthController {
   }
 
   @Post('logout')
-  async logout(@Res({ passthrough: true }) response: Response) {
+  async logout(@Res({ passthrough: true }) response) {
     response.cookie('access_token', '', {
       httpOnly: true,
       expires: new Date(0),
